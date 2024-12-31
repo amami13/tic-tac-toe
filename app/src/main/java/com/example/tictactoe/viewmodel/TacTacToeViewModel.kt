@@ -1,5 +1,6 @@
 package com.example.tictactoe.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,16 +29,18 @@ class TicTacToeViewModel : ViewModel() {
 
     fun makeMove(row: Int, col: Int) {
         if (gameResult.value == GameResult.ONGOING && gameLogic.makeMove(row, col)) {
+            Log.d("TicTacToeViewModel", "1 Move made: ($row, $col), Current Player: ${_currentPlayer.value}, GameResult: ${_gameResult.value}")
             val result = gameLogic.checkGameState()
             _gameResult.value = result
+
+            // Update the board
+            _board.value = gameLogic.getBoard()
 
             if (result == GameResult.ONGOING) {
                 gameLogic.switchPlayer()
                 _currentPlayer.value = gameLogic.getCurrentPlayer()
             }
-
-            // Update the board
-            _board.value = gameLogic.getBoard()
+            Log.d("TicTacToeViewModel", "2 Move made: ($row, $col), Current Player: ${_currentPlayer.value}, GameResult: ${_gameResult.value}")
         }
     }
 
