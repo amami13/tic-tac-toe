@@ -29,7 +29,6 @@ class TicTacToeViewModel : ViewModel() {
 
     fun makeMove(row: Int, col: Int) {
         if (gameResult.value == GameResult.ONGOING && gameLogic.makeMove(row, col)) {
-            Log.d("TicTacToeViewModel", "1 Move made: ($row, $col), Current Player: ${_currentPlayer.value}, GameResult: ${_gameResult.value}")
             val result = gameLogic.checkGameState()
             _gameResult.value = result
 
@@ -40,7 +39,6 @@ class TicTacToeViewModel : ViewModel() {
                 gameLogic.switchPlayer()
                 _currentPlayer.value = gameLogic.getCurrentPlayer()
             }
-            Log.d("TicTacToeViewModel", "2 Move made: ($row, $col), Current Player: ${_currentPlayer.value}, GameResult: ${_gameResult.value}")
         }
     }
 
